@@ -1,9 +1,9 @@
-import React, {Suspense, useContext, useState} from 'react';
+import React, {Suspense} from 'react';
 import {Link, Route, Routes} from 'react-router-dom';
 import './styles/index.scss';
 import {useTheme} from "./theme/useTheme";
 import {classNames} from "./helpers/classNames/classNames";
-import MainPage from "./pages/MainPage/MainPage";
+import MainPage from "./components/MainPage/MainPage";
 import GamePage from "./components/GamePage/GamePage";
 
 

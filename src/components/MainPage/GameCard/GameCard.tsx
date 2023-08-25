@@ -1,5 +1,4 @@
 import React from 'react';
-// import classNames from "classnames";
 import cls from "./gameCard.module.scss";
 import {classNames} from "../../../helpers/classNames/classNames";
 import {useTheme} from "../../../theme/useTheme";
