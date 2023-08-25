@@ -1,12 +1,24 @@
-import React from 'react';
-import "./styles/globals.scss";
+import React, {Suspense, useContext, useState} from 'react';
+import {Link, Route, Routes} from 'react-router-dom';
+import './styles/index.scss';
+import {useTheme} from "./theme/useTheme";
+import {classNames} from "./helpers/classNames/classNames";
+import MainPage from "./pages/MainPage/MainPage";
+import GamePage from "./components/GamePage/GamePage";
 
-function App() {
-  return (
-    <div>
-      Content
-    </div>
-  );
-}
+
+const App = () => {
+    return (
+        <div>
+            <Link to={'/'}>Главная</Link>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                    <Route path="/" element={<MainPage/>}/>
+                    <Route path=":id" element={<GamePage/>}/>
+                </Routes>
+            </Suspense>
+        </div>
+    );
+};
 
 export default App;
