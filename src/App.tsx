@@ -8,8 +8,11 @@ import GamePage from "./components/GamePage/GamePage";
 
 
 const App = () => {
+    const {theme, toggleTheme} = useTheme();
+    const bool = true;
     return (
-        <div>
+        <div className={classNames('app', {}, [theme])}>
+            <button onClick={toggleTheme}>TOGGLE</button>
             <Link to={'/'}>Главная</Link>
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
