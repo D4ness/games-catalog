@@ -7,8 +7,7 @@ const initialState: GamesListState = {
     gamesPerPage: 20,
     currentPage: 1
 }
-export const gamesReducer = (state = initialState, action: GamesListAction): GamesListState => {
-    console.log(action)
+export const gamesListReducer = (state = initialState, action: GamesListAction): GamesListState => {
     switch (action.type) {
         case GamesListActionTypes.FETCH_GAMES_LIST:
             return {...state, loading: true, error: null, gamesList: []}

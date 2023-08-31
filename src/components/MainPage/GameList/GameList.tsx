@@ -5,16 +5,7 @@ import {classNames} from "../../../helpers/classNames/classNames";
 import cls from "./GameList.module.scss";
 import {useTheme} from "../../../theme/useTheme";
 import GameCard from '../GameCard/GameCard';
-
-export type GameCardType = {
-    id: number;
-    title: string;
-    release_date: string;
-    publisher: string;
-    genre: string;
-    thumbnail: string;
-    platform: string;
-}
+import {GameCardType} from "../../../types/gamesList";
 
 interface IProps {
     currentGames: GameCardType[];

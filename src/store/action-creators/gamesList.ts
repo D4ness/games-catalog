@@ -1,6 +1,5 @@
 import axios from "axios";
-import {GameCardType} from "../../components/MainPage/GameList/GameList";
-import {GamesListAction, GamesListActionTypes} from "../../types/gamesList";
+import {GameCardType, GamesListAction, GamesListActionTypes} from "../../types/gamesList";
 import {Dispatch} from "react";
 interface GetGamesList extends Array<GameCardType> {
     data: GameCardType[];
@@ -32,6 +31,7 @@ export const fetchGamesList = (filters: Record<string, string>) => {
     return async (dispatch: Dispatch<GamesListAction>) => {
         try {
             dispatch({type: GamesListActionTypes.FETCH_GAMES_LIST})
+            // TODO Передать параметры в params: {}
             const res = await axios.get<GetGamesList>(createUrl(filters), {
                 withCredentials: true,
                 headers: {
@@ -39,10 +39,8 @@ export const fetchGamesList = (filters: Record<string, string>) => {
                     'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
                 }
             })
-            console.log("ща будет")
             dispatch({type: GamesListActionTypes.FETCH_GAMES_LIST_SUCCESS, payload: res.data})
         } catch (err) {
-            console.log("error!")
             dispatch({
                 type: GamesListActionTypes.FETCH_GAMES_LIST_ERROR,
                 payload: "Произошла ошибка при загрузке списка игр"

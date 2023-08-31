@@ -9,7 +9,6 @@ import GamePage from "./components/GamePage/GamePage";
 
 const App = () => {
     const {theme, toggleTheme} = useTheme();
-    const bool = true;
     return (
         <div className={classNames('app', {}, [theme])}>
             <button onClick={toggleTheme}>TOGGLE</button>

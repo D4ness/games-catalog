@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import GameList, {GameCardType} from "./GameList/GameList";
+import GameList from "./GameList/GameList";
 import GameFilters from "./GameFilters/GameFilters";
 import GamesPagination from "./GamesPagination/GamesPagination";
 import gameList from "./GameList/GameList";
@@ -9,17 +9,9 @@ import {useActions} from "../../helpers/hooks/useActions";
 
 
 const MainPage = () => {
-        const {gamesList, loading, error, gamesPerPage, currentPage} = useTypedSelector(state => state.games);
+        const {gamesList, loading, error, gamesPerPage, currentPage} = useTypedSelector(state => state.gamesList);
         const lastGameIndex = currentPage * gamesPerPage;
         const firstGameIndex = lastGameIndex - gamesPerPage;
-        // const [currentGames, setCurrentGames] = useState(gamesList.slice(firstGameIndex, lastGameIndex));
-        // useEffect(() => {
-        //     // console.log(currentPage)
-        //     setCurrentGames(gamesList.slice(firstGameIndex, lastGameIndex))
-        // }, [currentPage, gamesList]);
-        // const [gamesList, setGamesList] = useState<GameCardType[]>([]);
-        // const [currentGames, setCurrentGames] = useState<GameCardType[]>([]);
-        // const [loadingState, setLoadingState] = useState<boolean>(false);
         const [filters, setFilters] = useState<Record<string, string>>({
             genre: undefined,
             platform: undefined,

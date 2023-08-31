@@ -1,4 +1,12 @@
-import {GameCardType} from "../components/MainPage/GameList/GameList";
+export type GameCardType = {
+    id: number;
+    title: string;
+    release_date: string;
+    publisher: string;
+    genre: string;
+    thumbnail: string;
+    platform: string;
+}
 
 export interface GamesListState {
     gamesList: GameCardType[];

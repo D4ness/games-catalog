@@ -5,7 +5,7 @@ import {useTheme} from "../../../theme/useTheme";
 import Meta from "antd/es/card/Meta";
 import {DateTime} from "luxon";
 import {Card} from "antd";
-import {GameCardType} from "../GameList/GameList";
+import {GameCardType} from "../../../types/gamesList";
 
 interface IProps {
     game: GameCardType;
