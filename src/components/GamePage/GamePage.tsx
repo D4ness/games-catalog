@@ -11,6 +11,7 @@ type Screenshot = {
 }
 
 interface Game {
+    id: number;
     title: string;
     release_date: string;
     publisher: string;
@@ -21,10 +22,18 @@ interface Game {
     screenshots: Screenshot[];
 }
 
+
 const GamePage = () => {
     const {theme, toggleTheme} = useTheme();
     const {id} = useParams();
     const [game, setGame] = useState<Game>(null);
+    const [imageSize, setImageSize] = useState('500px');
+    const calculateImageSize = () => {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const screenSize = screenWidth > screenHeight ? screenWidth/1.78*0.7 : screenHeight*0.7;
+        setImageSize(`${screenSize}px`);
+    }
     const getGameInfo = async (id: string) => {
         try {
             const url = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`;
@@ -43,10 +52,9 @@ const GamePage = () => {
     };
     useEffect(() => {
         getGameInfo(id);
+        calculateImageSize();
         console.log("GAME", game);
-        // console.log(game.screenshots)
     }, []);
-
     return (
         <>
             {
@@ -64,11 +72,15 @@ const GamePage = () => {
                         <div>{game.minimum_system_requirements.values}</div>
                         <Carousel>
                             {game.screenshots.map(screen =>
-                                <div>
-                                <div
-                                    style={{margin: "0 auto", backgroundImage: `url(${screen.image})`, width: "70%", minHeight: "500px", backgroundSize: "100%", color:"white"}}
-                                >
-                                </div>
+                                <div key={screen.id}>
+                                    <div
+                                        style={{
+                                            margin: "0 auto", backgroundImage: `url(${screen.image})`,
+                                            width: "70%", minHeight: imageSize,
+                                            backgroundSize: "100%", color: "white"
+                                        }}
+                                    >
+                                    </div>
                                 </div>)}
                         </Carousel>
                     </div> :
