@@ -7,7 +7,7 @@ import {gameAPI} from "../../services/GameService";
 
 
 const GamePage = () => {
-    const {theme, toggleTheme} = useTheme();
+    const {theme} = useTheme();
     const {id} = useParams();
     const {data, isLoading, error} = gameAPI.useFetchGameQuery(Number(id));
 
@@ -26,12 +26,13 @@ const GamePage = () => {
         return <h1>Произошла ошибка при загрузке данных об игре</h1>
     }
     // TODO Системные требования
+    console.log(data.minimum_system_requirements);
     return (
         <>
             {
                 data ?
                     <div>
-                        <div>{data.title}</div>
+                        <div><b>{data.title}</b></div>
                         <div>
                             Дата издания: {
                             DateTime
@@ -40,7 +41,11 @@ const GamePage = () => {
                         }
                         </div>
                         <div>Издатель: {data.publisher}, Разработчик: {data.developer}, Жанр: {data.genre}</div>
-                        <div>{data.minimum_system_requirements?.values}</div>
+                        <div>
+                            <div style={{marginTop: "10px"}}>Системные требования</div>
+                            {data. minimum_system_requirements && Object.keys(data.minimum_system_requirements)
+                            .map(req => <div style={{fontSize: "10px"}}>{req} : {data.minimum_system_requirements[req]}</div>)}
+                        </div>
                         <Carousel>
                             {data.screenshots.map(screen =>
                                 <div key={screen.id} ref={ref}>

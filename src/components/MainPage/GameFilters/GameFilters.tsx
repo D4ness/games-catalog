@@ -2,6 +2,10 @@ import React, {SetStateAction} from 'react';
 import {Select} from "antd";
 import {useActions} from "../../../helpers/hooks/useActions";
 import categories from "../../../store/categories";
+import {classNames} from "../../../helpers/classNames/classNames";
+import {useTheme} from "../../../theme/useTheme";
+import cls from "./GameFilters.module.scss"
+import ButtonUI from "../../UI/ButtonUI/ButtonUI";
 
 interface IProps {
     filters: Record<string, string>;
@@ -10,44 +14,44 @@ interface IProps {
 
 const GameFilters = ({filters, setFilters}: IProps) => {
     const {fetchGamesList} = useActions();
+    const {theme} = useTheme();
 
     return (
         <>
             <div>Фильтры:</div>
-            {/*<Space wrap>*/}
             <div>
                 По жанру:
                 <Select
                     allowClear
-                    style={{width: 120}}
+                    className={classNames(cls.select, {}, [theme])}
                     onChange={option => {
                         setFilters({...filters, genre: option})
                     }}
-                    defaultValue={filters.genre}
+                    defaultValue={filters?.genre}
                     options={categories}
-
                 />
             </div>
             <div>
                 По платформе:
                 <Select
-                    style={{width: 120}}
+                    allowClear
+                    className={classNames(cls.select, {}, [theme])}
                     onChange={option => setFilters({...filters, platform: option})}
-                    defaultValue={filters.platform}
+                    defaultValue={filters?.platform}
                     options={[
                         {value: "pc", label: "PC"},
                         {value: "browser", label: "Browser"}
                     ]}
                 />
             </div>
-
-            {/*</Space>*/}
             <div>
                 Сортировка:
                 <Select
-                    style={{width: 120}}
+                    allowClear
+
+                    className={classNames(cls.select, {}, [theme])}
                     onChange={option => setFilters({...filters, sortBy: option})}
-                    defaultValue={filters.sortBy}
+                    defaultValue={filters?.sortBy}
                     options={[
                         {value: "alphabetical", label: "По алфавитному порядку"},
                         {value: "release-date", label: "По дате релиза"},
@@ -55,7 +59,7 @@ const GameFilters = ({filters, setFilters}: IProps) => {
                     ]}
                 />
             </div>
-            <button type="button" onClick={() => fetchGamesList(filters)}>Применить</button>
+            <ButtonUI type="button" onClick={() => fetchGamesList(filters)}>Применить</ButtonUI>
         </>
     );
 };

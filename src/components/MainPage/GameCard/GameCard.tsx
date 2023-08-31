@@ -12,18 +12,19 @@ interface IProps {
 }
 
 const GameCard = ({game}: IProps) => {
-    const {theme, toggleTheme} = useTheme();
+    const {theme} = useTheme();
 
     return (
         <Card
             cover={<img alt={`${game.title}-image`} src={game.thumbnail}/>}
-            style={{backgroundColor: "var(--primary-color)", border: "none"}}
+            // style={{backgroundColor: "var(--primary-color)", border: "none"}}
+            className={classNames(cls.cardWrapper, {}, [theme])}
         >
             <Meta
                 title={game.title}
                 description={
-                    <div style={{display: "flex", justifyContent: "space-between"}}>
-                        <div>{game.genre}</div>
+                    <div className={classNames(cls.cardInfo, {}, [theme])}>
+                        <div style={{marginRight: "10px"}}>{game.genre}</div>
                         <div>
                             Дата издания: {
                             DateTime
