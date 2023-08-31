@@ -5,7 +5,12 @@ const initialState: GamesListState = {
     loading: false,
     error: null,
     gamesPerPage: 20,
-    currentPage: 1
+    currentPage: 1,
+    filters: {
+        genre: undefined,
+        platform: undefined,
+        sortBy: undefined
+    }
 }
 export const gamesListReducer = (state = initialState, action: GamesListAction): GamesListState => {
     switch (action.type) {
@@ -17,6 +22,8 @@ export const gamesListReducer = (state = initialState, action: GamesListAction):
             return {...state, loading: false, error: action.payload, gamesList: []}
         case GamesListActionTypes.CHANGE_PAGE:
             return {...state, currentPage: action.payload}
+        case GamesListActionTypes.SET_FILTERS:
+            return {...state, filters: action.payload}
         default:
             return state
     }

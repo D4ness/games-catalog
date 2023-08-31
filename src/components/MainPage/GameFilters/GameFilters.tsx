@@ -1,15 +1,21 @@
 import React, {SetStateAction} from 'react';
-import {Select, Space} from "antd";
+import {Select} from "antd";
+import {useActions} from "../../../helpers/hooks/useActions";
+import categories from "../../../store/categories";
 
 interface IProps {
     filters: Record<string, string>;
     setFilters: React.Dispatch<SetStateAction<Record<string, string>>>
 }
-const GameFilters = ({filters, setFilters}:IProps) => {
+
+const GameFilters = ({filters, setFilters}: IProps) => {
+    const {fetchGamesList} = useActions();
+
     return (
         <>
             <div>Фильтры:</div>
-            <Space wrap>
+            {/*<Space wrap>*/}
+            <div>
                 По жанру:
                 <Select
                     allowClear
@@ -17,32 +23,39 @@ const GameFilters = ({filters, setFilters}:IProps) => {
                     onChange={option => {
                         setFilters({...filters, genre: option})
                     }}
-                    // defaultValue={genre}
-                    options={
-                        [{"value": "mmorpg", "label": "mmorpg"}, {"value": "shooter", "label": "shooter"}, {"value": "strategy", "label": "strategy"}, {"value": "moba", "label": "moba"}, {"value": "racing", "label": "racing"}, {"value": "sports", "label": "sports"}, {"value": "social", "label": "social"}, {"value": "sandbox", "label": "sandbox"}, {"value": "open-world", "label": "open-world"}, {"value": "survival", "label": "survival"}, {"value": "pvp", "label": "pvp"}, {"value": "pve", "label": "pve"}, {"value": "pixel", "label": "pixel"}, {"value": "voxel", "label": "voxel"}, {"value": "zombie", "label": "zombie"}, {"value": "turn-based", "label": "turn-based"}, {"value": "first-person", "label": "first-person"}, {"value": "third-Person", "label": "third-Person"}, {"value": "top-down", "label": "top-down"}, {"value": "tank", "label": "tank"}, {"value": "space", "label": "space"}, {"value": "sailing", "label": "sailing"}, {"value": "side-scroller", "label": "side-scroller"}, {"value": "superhero", "label": "superhero"}, {"value": "permadeath", "label": "permadeath"}, {"value": "card", "label": "card"}, {"value": "battle-royale", "label": "battle-royale"}, {"value": "mmo", "label": "mmo"}, {"value": "mmofps", "label": "mmofps"}, {"value": "mmotps", "label": "mmotps"}, {"value": "3d", "label": "3d"}, {"value": "2d", "label": "2d"}, {"value": "anime", "label": "anime"}, {"value": "fantasy", "label": "fantasy"}, {"value": "sci-fi", "label": "sci-fi"}, {"value": "fighting", "label": "fighting"}, {"value": "action-rpg", "label": "action-rpg"}, {"value": "action", "label": "action"}, {"value": "military", "label": "military"}, {"value": "martial-arts", "label": "martial-arts"}, {"value": "flight", "label": "flight"}, {"value": "low-spec", "label": "low-spec"}, {"value": "tower-defense", "label": "tower-defense"}, {"value": "horror", "label": "horror"}, {"value": "mmorts", "label": "mmorts"}]
-                    }
+                    defaultValue={filters.genre}
+                    options={categories}
 
                 />
+            </div>
+            <div>
                 По платформе:
                 <Select
                     style={{width: 120}}
                     onChange={option => setFilters({...filters, platform: option})}
+                    defaultValue={filters.platform}
                     options={[
                         {value: "pc", label: "PC"},
                         {value: "browser", label: "Browser"}
                     ]}
                 />
+            </div>
 
-            </Space>
-            <Select
-                style={{width: 120}}
-                onChange={option => setFilters({...filters, sortBy: option})}
-                options={[
-                    {value: "alphabetical", label: "По алфавитному порядку"},
-                    {value: "release-date", label: "По дате релиза"},
-                    {value: "popularity", label: "По популярности"},
-                ]}
-            />
+            {/*</Space>*/}
+            <div>
+                Сортировка:
+                <Select
+                    style={{width: 120}}
+                    onChange={option => setFilters({...filters, sortBy: option})}
+                    defaultValue={filters.sortBy}
+                    options={[
+                        {value: "alphabetical", label: "По алфавитному порядку"},
+                        {value: "release-date", label: "По дате релиза"},
+                        {value: "popularity", label: "По популярности"},
+                    ]}
+                />
+            </div>
+            <button type="button" onClick={() => fetchGamesList(filters)}>Применить</button>
         </>
     );
 };
