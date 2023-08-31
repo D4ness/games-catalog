@@ -41,11 +41,11 @@ const GamePage = () => {
                         }
                         </div>
                         <div>Издатель: {data.publisher}, Разработчик: {data.developer}, Жанр: {data.genre}</div>
-                        <div>
+                        {data.minimum_system_requirements && <div>
                             <div style={{marginTop: "10px"}}>Системные требования</div>
-                            {data. minimum_system_requirements && Object.keys(data.minimum_system_requirements)
+                            {Object.keys(data.minimum_system_requirements)
                             .map(req => <div style={{fontSize: "10px"}}>{req} : {data.minimum_system_requirements[req]}</div>)}
-                        </div>
+                        </div>}
                         <Carousel>
                             {data.screenshots.map(screen =>
                                 <div key={screen.id} ref={ref}>
